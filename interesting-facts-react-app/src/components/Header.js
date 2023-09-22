@@ -1,4 +1,6 @@
-function Header() {
+import ShareAFact from "./ShareAFact";
+
+function Header(props) {
   return (
     <header className="header">
       <div className="logo">
@@ -10,7 +12,12 @@ function Header() {
         />
         <h1>Interesting Facts</h1>
       </div>
-      <button className="btn btn-large btn-open">Share a fact</button>
+      <button
+        className="btn btn-large btn-open"
+        onClick={() => props.setShowFactForm((showFactForm) => !showFactForm)}
+      >
+        Share a fact
+      </button>
     </header>
   );
 }
