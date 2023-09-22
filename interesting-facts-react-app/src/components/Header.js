@@ -16,7 +16,7 @@ function Header(props) {
         className="btn btn-large btn-open"
         onClick={() => props.setShowFactForm((showFactForm) => !showFactForm)}
       >
-        Share a fact
+        {props.showFactForm ? "Close" : "Share a fact"}
       </button>
     </header>
   );
