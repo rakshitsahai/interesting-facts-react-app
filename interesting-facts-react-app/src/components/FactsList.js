@@ -2,6 +2,7 @@ import Fact from "./Fact";
 
 function FactsList(props) {
   const facts = props.facts;
+  //console.log(facts.map());
 
   return (
     <>

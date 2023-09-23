@@ -28,9 +28,9 @@ function Fact({ fact }) {
         {fact.category}
       </span>
       <div className="vote-buttons">
-        <button>👍 {fact.votesInteresting}</button>
-        <button>🤯 {fact.votesMindblowing}</button>
-        <button>⛔️ {fact.votesFalse}</button>
+        <button>👍 {fact.likes}</button>
+        <button>🤯 {fact.wow}</button>
+        <button>⛔️ {fact.dislikes}</button>
       </div>
     </li>
   );
