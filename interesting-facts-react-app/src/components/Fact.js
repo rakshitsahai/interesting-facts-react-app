@@ -21,7 +21,8 @@ function Fact({ fact }) {
       <span
         className="tag"
         style={{
-          backgroundColor: CATEGORIES.find((cat) => cat.name).color,
+          backgroundColor: CATEGORIES.find((cat) => cat.name == fact.category)
+            .color,
         }}
       >
         {fact.category}
