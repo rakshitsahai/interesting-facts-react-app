@@ -9,21 +9,28 @@ const CATEGORIES = [
   { name: "news", color: "#8b5cf6" },
 ];
 
-function Category() {
+function Category(props) {
   const category = CATEGORIES;
+  const setCurrentCategory = props.setCurrentCategory;
 
   return (
     <>
       <aside>
         <ul>
           <li className="category">
-            <button className="btn btn-all-categories">All</button>
+            <button
+              className="btn btn-all-categories"
+              onClick={() => setCurrentCategory("all")}
+            >
+              All
+            </button>
           </li>
           {category.map((category) => (
             <li key={category.name} className="category">
               <button
                 className="btn btn-category"
                 style={{ backgroundColor: category.color }}
+                onClick={() => setCurrentCategory(category.name)}
               >
                 {category.name}
               </button>
