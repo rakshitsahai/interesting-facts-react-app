@@ -1,4 +1,5 @@
 import { useState } from "react";
+import supabase from "../supabase";
 
 const CATEGORIES = [
   { name: "technology", color: "#3b82f6" },
@@ -25,11 +26,13 @@ function isValidHttpUrl(string) {
 
 function ShareAFact(props) {
   const [text, setText] = useState("");
-  const [source, setSource] = useState("https://www.example.com");
+  const [source, setSource] = useState("");
   const [category, setCategory] = useState("");
   const textLength = text.length;
+  const isUploading = props.isUploading;
+  const setIsUploading = props.setIsUploading;
 
-  function submitForm(event) {
+  async function submitForm(event) {
     event.preventDefault();
     if (
       text &&
@@ -38,18 +41,16 @@ function ShareAFact(props) {
       textLength <= 200 &&
       isValidHttpUrl(source)
     ) {
-      const fact = {
-        id: Math.round(Math.random() * 1000000),
-        text: text,
-        source: source,
-        category: category,
-        votesInteresting: 0,
-        votesMindblowing: 0,
-        votesFalse: 0,
-        createdIn: new Date().getFullYear(),
-      };
+      setIsUploading(true);
 
-      props.setFacts(() => [fact, ...props.facts]);
+      const { data, error } = await supabase
+        .from("facts")
+        .insert({ text, source, category })
+        .select();
+
+      setIsUploading(false);
+
+      if (!error) props.setFacts(() => [data[0], ...props.facts]);
 
       setText("");
       setSource("");
@@ -66,6 +67,7 @@ function ShareAFact(props) {
         placeholder="Share a fact with the world..."
         value={text}
         onChange={(event) => setText(event.target.value)}
+        disabled={isUploading}
       />
       <span>{200 - textLength}</span>
       <input
@@ -73,10 +75,12 @@ function ShareAFact(props) {
         placeholder="Trustworthy source..."
         value={source}
         onChange={(event) => setSource(event.target.value)}
+        disabled={isUploading}
       />
       <select
         value={category}
         onChange={(event) => setCategory(event.target.value)}
+        disabled={isUploading}
       >
         <option value="">Choose category:</option>
         {CATEGORIES.map((category) => (

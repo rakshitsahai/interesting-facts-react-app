@@ -13,6 +13,7 @@ function App() {
   const [facts, setFacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentCategory, setCurrentCategory] = useState("all");
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(
     function () {
@@ -23,7 +24,7 @@ function App() {
           query = query.eq("category", currentCategory);
         }
         const { data, error } = await query
-          .order("created_at", { ascending: true })
+          .order("created_at", { ascending: false })
           .limit(100);
 
         if (!error) setFacts(data);
@@ -43,6 +44,8 @@ function App() {
           facts={facts}
           setFacts={setFacts}
           setShowFactForm={setShowFactForm}
+          isUploading={isUploading}
+          setIsUploading={setIsUploading}
         />
       ) : null}
       <main className="main">
