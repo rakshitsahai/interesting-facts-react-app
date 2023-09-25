@@ -1,5 +1,3 @@
-import ShareAFact from "./ShareAFact";
-
 function Header(props) {
   return (
     <header className="header">

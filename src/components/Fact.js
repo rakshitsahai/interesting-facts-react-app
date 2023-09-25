@@ -35,14 +35,19 @@ function Fact({ fact, setFacts }) {
       {isDisputed ? <span className="disputed">[DISPUTED]</span> : null}
       <p>
         {fact.text}
-        <a className="source" href={fact.source} target="_blank">
+        <a
+          className="source"
+          href={fact.source}
+          target="_blank"
+          rel="noreferrer"
+        >
           (Source)
         </a>
       </p>
       <span
         className="tag"
         style={{
-          backgroundColor: CATEGORIES.find((cat) => cat.name == fact.category)
+          backgroundColor: CATEGORIES.find((cat) => cat.name === fact.category)
             .color,
         }}
       >
